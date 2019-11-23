@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <title>Rating Page</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,400italic,700,900' rel='stylesheet'
+          type='text/css'>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Techie Bootstrap 3 skin">
+    <meta name="keywords" content="bootstrap 3, skin, flat">
+    <meta name="author" content="bootstraptaste">
+
+    <!-- Bootstrap css -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.techie.css" rel="stylesheet">
+
+    <!-- =======================================================
+        Theme Name: Techie
+        Theme URL: https://bootstrapmade.com/techie-free-skin-bootstrap-3/
+        Author: BootstrapMade
+        Author URL: https://bootstrapmade.com
+    ======================================================= -->
+
+    <!-- Docs Custom styles -->
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Rate Parameters</h2>
+    <div class="col-sm-12 col-lg-12">
+        <div class="row" id="container">
+            <div class="col-md-offset-12">
+                <form class="form-horizontal" action="logout.html" method="post">
+                    <input type=submit align="right" class="btn btn-danger" name="logout_btn" value="Log Out">
+                </form>
+            </div>
+            <!--<form class="form-horizontal" action="rateParameters.html" method="post" id="rateParamForm">-->
+
+            <div class="col-sm-6 col-lg-6">
+                <p class="lead text-muted" id="table1_name"></p>
+                <table class="table table-bordered" data-effect="fade" id="table1">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th hidden>Tender</th>
+                        <th>Value</th>
+                        <th>Rating</th>
+                    </tr>
+                    </thead>
+                    <tbody id="t1_body">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <p class="lead text-muted" id="table2_name"></p>
+                <table class="table table-bordered" data-effect="fade" id="table2">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th hidden>Tender</th>
+                        <th>Value</th>
+                        <th>Rating</th>
+                    </tr>
+                    </thead>
+                    <tbody id="t2_body">
+                    </tbody>
+                </table>
+                <p hidden id="parameter1_id">1</p>
+                <p hidden id="parameter2_id">2</p>
+            </div>
+            <button class="btn btn-primary" name="rateParamBtn" id="rateParamBtn"> Submit Ratings</button>
+            <!--</form>-->
+        </div>
+    </div>
+    <div class="col-md-offset-5">
+        <p hidden id="file11_url"></p>
+        <p hidden id="file12_url"></p>
+        <p hidden id="file21_url"></p>
+        <p hidden id="file22_url"></p>
+        <p hidden id="tender1_id"></p>
+        <p hidden id="tender2_id"></p>
+        <button disabled class="btn btn-primary" id="previous_btn">Previous</button>
+        <button class="btn btn-warning" id="next_btn">Next</button>
+        <button class="btn btn-info invisible" id="winner_btn">Calculate Winner</button>
+    </div>
+    <p id="messageText"></p>
+
+    <br>
+    <div id="pdf" class="divider">
+    </div>
+</div> <!-- /container -->
+
+<footer class="text-center">
+    <p>&copy; Techie Skin</p>
+    <div class="credits">
+        <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=Techie
+        -->
+        <a href="https://bootstrapmade.com/">Bootstrap Themes</a> by <a
+            href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+</footer>
+
+<!-- Main Scripts-->
+<script src="../static/js/jquery.js"></script>
+<script src="../static/js/pdfobject.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap 3 has typeahead optionally -->
+<script src="../static/js/typeahead.min.js"></script>
+<script>
+    parameter1 = $("#parameter1_id").text();
+    type1 = $("#type1").text();
+
+    parameter2 = $("#parameter2_id").text();
+    type2 = $("#type2").text();
+
+    function getParams() {
+        parameter1 = $("#parameter1_id").text();
+
+        parameter2 = $("#parameter2_id").text();
+        data = {
+            'parameter1': parameter1,
+            'parameter2': parameter2
+        };
+
+        $.ajax({
+            type: 'post',
+            url: '/getParams.html',
+            data: data,
+            dataType: 'json',
+            success: function (result) {
+                var tender_list1 = result[0].value;
+                var tender_list2 = result[1].value;
+                $("#table1_name").text(result[0].name);
+                $("#table2_name").text(result[1].name);
+                populateTables(tender_list1, "#t1_body", 1);
+                populateTables(tender_list2, '#t2_body', 2);
+            }
+        });
+    }
+
+    function shuffle(o) {
+        for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    }
+    ;
+    function populateTables(tender_list, t_body, t_no) {
+        var count = 1;
+        shuffled_list = shuffle(tender_list);
+
+        for (var i in shuffled_list) {
+            if (i == 0) {
+                console.log(shuffled_list[i].tender_id);
+            }
+            if (i == 1) {
+                console.log(shuffled_list[i].tender_id);
+
+            }
+            if (typeof shuffled_list[i].value == 'string') {
+                if (t_no == 1) {
+                    if (i == 0) {
+                        $("#file11_url").text(shuffled_list[i].value);
+                    }
+                    else if (i == 1) {
+                        $("#file12_url").text(shuffled_list[i].value);
+                    }
+                }
+                else if (t_no == 2) {
+                    if (i == 0) {
+                        $("#file21_url").text(shuffled_list[i].value);
+                    }
+                    else if (i == 1) {
+                        $("#file22_url").text(shuffled_list[i].value);
+                    }
+                }
+
+                $(t_body).append('<tr><td>' + count + '</td>' +
+                    '<td hidden id="tender' + shuffled_list[i].tender_id + '">' + shuffled_list[i].tender_id + '</td>' +
+                    '<td><button class="btn btn-info" id="btn_' + t_no + i + '">View File</button></td>' +
+                    '<td><select id="tender' + shuffled_list[i].tender_id + 'rating">' +
+                    '<option value="1">1</option>' +
+                    '<option value="2">2</option>' +
+                    '<option value="3">3</option>' +
+                    '<option value="4">4</option>' +
+                    '<option value="5">5</option>' +
+                    '</select></td></tr>');
+            }
+            else {
+
+                $(t_body).append('<tr><td>' + count + '</td>' +
+                    '<td hidden id="tender' + shuffled_list[i].tender_id + '">' + shuffled_list[i].tender_id + '</td>' +
+                    '<td>' + shuffled_list[i].value + '</td>' +
+                    '<td><select id="tender' + shuffled_list[i].tender_id + 'rating">' +
+                    '<option value="1">1</option>' +
+                    '<option value="2">2</option>' +
+                    '<option value="3">3</option>' +
+                    '<option value="4">4</option>' +
+                    '<option value="5">5</option>' +
+                    '</select></td></tr>');
+            }
+            count = count + 1;
+        }
+    }
+
+    function viewFile() {
+        console.log("Inside viewFile");
+
+        $("#t2_body").on('click', '#btn_20', function () {
+            console.log("File viewed");
+            PDFObject.embed($("#file21_url").text(), "#pdf", {height: '100rem'});
+        });
+        $("#t2_body").on('click', '#btn_21', function () {
+            console.log("File viewed");
+
+            PDFObject.embed($("#file22_url").text(), "#pdf", {height: '100rem'});
+        });
+
+        $('#t1_body').on('click', '#btn_10', function () {
+            console.log("File viewed");
+
+            PDFObject.embed($("#file11_url").text(), "#pdf", {height: '100rem'});
+        });
+        $("#t1_body").on('click', '#btn_11', function () {
+            console.log("File viewed");
+
+            PDFObject.embed($("#file12_url").text(), "#pdf", {height: '100rem'});
+        });
+    }
+
+    getParams();
+    viewFile();
+
+    $("#next_btn").click(function () {
+        $('#previous_btn').removeAttr('disabled');
+        if (parameter1 >= 14) {
+            $(this).button('disabled', true);
+            $("#winner_btn").removeClass('invisible');
+
+        }
+        else {
+            parameter1 = parseInt(parameter1) + 2;
+            parameter2 = parseInt(parameter2) + 2;
+            $("#parameter1_id").text(parameter1);
+            $("#parameter2_id").text(parameter2);
+
+            $("#t1_body").empty();
+            $("#t2_body").empty();
+            getParams();
+
+
+        }
+
+    });
+
+    $("#previous_btn").click(function () {
+        $("#winner_btn").addClass('invisible');
+
+        if (parameter1 < 2) {
+            $(this).button('disabled', true);
+        }
+        else {
+            parameter1 = parseInt(parameter1) - 2;
+            parameter2 = parseInt(parameter2) - 2;
+
+            $("#parameter1_id").text(parameter1);
+            $("#parameter2_id").text(parameter2);
+
+            $("#t1_body").empty();
+            $("#t2_body").empty();
+            getParams();
+        }
+    });
+    $("#rateParamBtn").click(function (e) {
+        e.preventDefault();
+
+        data = {
+            parameter1_id: parameter1,
+            parameter2_id: parameter2,
+            tender1: $("#tender1_id").text(),
+            tender2: $("#tender2_id").text(),
+            tender1_rating: $("#tender18rating").val(),
+            tender2_rating: $("#tender19rating").val()
+        };
+        $.ajax({
+            type: 'post',
+            url: '/rateParameters.html',
+            data: data,
+            dataType: 'text',
+            success: function (data) {
+                $("#messageText").text("The ratings have been submitted! Click on next to rate the next parameters");
+
+            }
+        });
+    });
+    $("#winner_btn").click(function () {
+        $.ajax({
+            url: "/calculateScore.html",
+            type: 'get',
+            dataType: 'text',
+            success: function (data) {
+                $.ajax({
+                    url: "/selectWinner.html",
+                    type: 'get',
+                    dataType: 'text',
+                    success: function (data) {
+                        console.log(data);
+//                var dataJs = JSON.parse();
+                        $("#messageText").text("The Winner is " + data);
+                    }
+                });
+            }
+        });
+
+
+    })
+
+</script>
+</body>
+</html>

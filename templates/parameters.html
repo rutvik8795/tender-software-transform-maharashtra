@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <title>Enter Values for Tender</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,400italic,700,900' rel='stylesheet'
+          type='text/css'>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Techie Bootstrap 3 skin">
+    <meta name="keywords" content="bootstrap 3, skin, flat">
+    <meta name="author" content="bootstraptaste">
+
+    <!-- Bootstrap css -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.techie.css" rel="stylesheet">
+
+
+    <!-- =======================================================
+        Theme Name: Techie
+        Theme URL: https://bootstrapmade.com/techie-free-skin-bootstrap-3/
+        Author: BootstrapMade
+        Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+
+<body>
+<div class="container">
+    <div class="col-sm-12 col-lg-12">
+        <h2>Describe your Tender</h2>
+        <div class="row">
+            <div class="col-sm-6 col-lg-9">
+                <p class="lead text-muted" id="par">Insert Values</p>
+                <form class="form-horizontal" action="submit_parameters.html" method="post" enctype="multipart/form-data">
+                    <table class="table table-striped" data-effect="fade" id="table_with_entry">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Final Tender Cost</td>
+                            <td>
+                                <input type="number" name="Final Tender Cost(in Lakh Rs.)">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Average annual turnover of last 3 years</td>
+                            <td>
+                                <input type="number" name="Average annual turnover of last 3 years(in Lakh Rs.)">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Plant and machinery to be deployed on site</td>
+                            <td>
+                                <input type="file" name="Plant and machinery to be deployed on site">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Resource Histogram</td>
+                            <td>
+                                <input type="file" name="Resource Histogram">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>High Level Schedule</td>
+                            <td>
+                                <input type="file" name="High Level Schedule">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>On Site/Off Site Logistic Plan</td>
+                            <td>
+                                <input type="file" name="On Site/Off site Logistic Plan">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Time Required</td>
+                            <td>
+                                <input type="number" name="Time required(in months)">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Quality Plan</td>
+                            <td>
+                                <input type="file" name="Quality Plan">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>EHS Plan</td>
+                            <td>
+                                <input type="file" name="EHS Plan">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Work Methodology</td>
+                            <td>
+                                <input type="file" name="Work Methodology">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Cash Flow</td>
+                            <td>
+                                <input type="file" name="Cash Flow">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Value Engineering</td>
+                            <td>
+                                <input type="file" name="Value Engineering">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>Experience of similar works</td>
+                            <td>
+                                <input type="number" name="Experience of similar works">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>Deviation List/Exclusions</td>
+                            <td>
+                                <input type="file" name="Devaiation List/Exclusions">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>Quantum of work in hand</td>
+                            <td>
+                                <input type="number" name="Quantum of work in hand(in Lakh Rs.)">
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>Profit made in last 3 years</td>
+                            <td>
+                                <input type="number" name="Profit made in last 3 years(in Lakh Rs.)">
+                            <td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <input class="btn btn-default" type="submit" name="submit_values" value="Submit Values">
+                </form>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <form class="form-horizontal" action="logout.html" method="post">
+                    <input type=submit align="right" class="btn btn-danger" name="logout_btn" value="Log Out">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
